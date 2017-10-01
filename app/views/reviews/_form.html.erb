@@ -1,0 +1,49 @@
+<%= form_with(model: review, local: true) do |form| %>
+  <% if review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :rating %>
+    <%= form.select(:rating, [['0',0],['1',1] ,['2',2], ['3',3]])%>
+  </div>
+
+  <div class="field">
+    <%= form.label :rest %>
+    <%= form.hidden_field :restaurant_id, value: @restaurant_id %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment, id: :review_comment %>
+
+  </div>
+
+
+  <div class="field">
+    <%= form.label :user_name %>
+    <%= form.text_field :name, id: :user_name %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :user_email %>
+    <%= form.text_field :email, id: :user_email %>
+
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
