@@ -7,11 +7,11 @@
 #  rating     :decimal(, )      default(0.0)
 #  tenbis     :boolean
 #  address    :string
-#  price      :decimal(, )
 #  maxDevTime :decimal(, )
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  cuisine_id :integer
+#  kosher     :boolean
 #
 
 require 'test_helper'

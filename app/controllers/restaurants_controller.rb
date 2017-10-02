@@ -10,18 +10,18 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
-    @cuisines= Cuisine.all
+    @cuisines = Cuisine.all
   end
 
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
-    @cuisines= Cuisine.all
+    @cuisines = Cuisine.all
   end
 
   # GET /restaurants/1/edit
   def edit
-    @cuisines= Cuisine.all
+    @cuisines = Cuisine.all
   end
 
   # POST /restaurants
@@ -65,13 +65,12 @@ class RestaurantsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
       @restaurant = Restaurant.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # require params methods
     def restaurant_params
-      params.require(:restaurant).permit(:name, :rating, :tenbis, :address, :price, :maxDevTime,:cuisine_id)
+      params.require(:restaurant).permit(:name, :rating, :tenbis, :address, :kosher, :maxDevTime,:cuisine_id)
     end
 end

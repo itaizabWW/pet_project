@@ -28,8 +28,11 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     restaurant_id = review_params[:restaurant_id]
 
-    #save user info
+    # save user info
     user_validate
+
+    # save maxDevTime to restaurant
+    update_maxDevTime(restaurant_id)
 
 
     respond_to do |format|
@@ -71,12 +74,12 @@ class ReviewsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_review
       @review = Review.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # require params methods
     def review_params
       params.require(:review).permit(:rating, :comment, :restaurant_id)
     end
@@ -84,6 +87,28 @@ class ReviewsController < ApplicationController
     def user_params
       params.require(:review).permit(:name, :email)
     end
+
+    def delivery_params
+      params.require(:review).permit(:maxDevTime)
+    end
+
+
+    def update_maxDevTime(restaurant_id)
+      review_maxDevTime = Integer(delivery_params["maxDevTime"])
+      cur_restaurant = Restaurant.find(restaurant_id)
+      # update to the new max time
+      if cur_restaurant.maxDevTime == nil
+        cur_restaurant.maxDevTime = review_maxDevTime
+        cur_restaurant.save
+      else
+        if review_maxDevTime > cur_restaurant.maxDevTime
+          cur_restaurant.maxDevTime = review_maxDevTime
+          cur_restaurant.save
+        end
+      end
+
+    end
+
 
     def user_validate
       existing_user = User.find_by(email: user_params[:email])

@@ -8,7 +8,7 @@
         <th>Rating</th>
         <th>10bis</th>
         <th>Address</th>
-        <th>Price</th>
+        <th>Kosher</th>
         <th>Maxdevtime</th>
         <th>Review</th>
         <th colspan="3"></th>
@@ -21,22 +21,18 @@
           <tr>
 
             <td><%= restaurant.name %></td>
-            <td><%= restaurant.cuisine_id %></td>
-            <td><%= restaurant.rating %></td>
+            <td><%= restaurant.cuisine.name %></td>
+            <td><%= restaurant.rating.round %></td>
             <td><%= restaurant.tenbis %></td>
             <td><%= restaurant.address %></td>
-            <td><%= restaurant.price %></td>
+            <td><%= restaurant.kosher %></td>
             <td><%= restaurant.maxDevTime %></td>
-
-
 
             <% @reviews.each do |review| %>
                 <% if review.restaurant_id   == restaurant.id %>
                     <td><%= review.comment %></td>
                 <% end %>
             <% end %>
-
-
 
             <td><%= link_to 'Add a review', new_review_path(restaurant_id: restaurant.id) %></td>
 

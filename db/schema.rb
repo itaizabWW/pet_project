@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171001055655) do
+ActiveRecord::Schema.define(version: 20171002071651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(version: 20171001055655) do
     t.decimal "rating", default: "0.0"
     t.boolean "tenbis"
     t.string "address"
-    t.decimal "price"
     t.decimal "maxDevTime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cuisine_id"
+    t.boolean "kosher"
   end
 
   create_table "reviews", force: :cascade do |t|

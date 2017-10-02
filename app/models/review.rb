@@ -17,8 +17,6 @@ class Review < ApplicationRecord
   validates :comment , :presence => true
   validates :user_id, :restaurant_id, :presence => true, :allow_nil => false, :allow_blank => false
 
-
-
   def update_restaurant_rating
     cur_rest = Restaurant.find(self.restaurant_id)
     cur_rest.rating = cur_rest.calculate_rating
