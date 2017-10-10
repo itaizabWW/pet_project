@@ -9,7 +9,7 @@
         <th>10bis</th>
         <th>Address</th>
         <th>Kosher</th>
-        <th>Maxdevtime</th>
+        <th>max_delivery_time</th>
         <th>Review</th>
         <th colspan="3"></th>
       </tr>
@@ -23,13 +23,13 @@
             <td><%= restaurant.name %></td>
             <td><%= restaurant.cuisine.name %></td>
             <td><%= restaurant.rating.round %></td>
-            <td><%= restaurant.tenbis %></td>
+            <td><%= restaurant.ten_bis %></td>
             <td><%= restaurant.address %></td>
             <td><%= restaurant.kosher %></td>
-            <td><%= restaurant.maxDevTime %></td>
+            <td><%= restaurant.max_delivery_time %></td>
 
             <% @reviews.each do |review| %>
-                <% if review.restaurant_id   == restaurant.id %>
+                <% if review.restaurant_id == restaurant.id %>
                     <td><%= review.comment %></td>
                 <% end %>
             <% end %>

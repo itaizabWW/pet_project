@@ -13,5 +13,5 @@ class User < ApplicationRecord
   has_many :reviews ,dependent: :destroy
   has_many :restaurants, :through => :reviews
 
-  validates :email,  :name, :presence => true, :allow_blank => false, :allow_nil => false
+  validates :email,  :name, presence: true, allow_blank: false, allow_nil: false
 end
