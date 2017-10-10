@@ -35,6 +35,7 @@ gem 'rails-controller-testing'
 
 gem 'faker', :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 
+gem 'react_on_rails', '~> 9.0.1'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
