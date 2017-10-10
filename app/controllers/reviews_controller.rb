@@ -15,7 +15,6 @@ class ReviewsController < ApplicationController
   def new
     @restaurant_id = params[:restaurant_id]
     @review = Review.new
-
   end
 
   # GET /reviews/1/edit
@@ -26,17 +25,15 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
-    restaurant_id = review_params[:restaurant_id]
 
-    #save user info
+    # save user info
     user_validate
 
+    # save max_delivery_time to restaurant
+    update_max_delivery_time(@review.restaurant_id)
 
     respond_to do |format|
       if @review.save
-        # calculate the reviews ratings and store it in restaurant db
-        @review.update_restaurant_rating
-
         format.html { redirect_to store_index_path, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
@@ -71,12 +68,12 @@ class ReviewsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_review
       @review = Review.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # require params methods
     def review_params
       params.require(:review).permit(:rating, :comment, :restaurant_id)
     end
@@ -85,14 +82,14 @@ class ReviewsController < ApplicationController
       params.require(:review).permit(:name, :email)
     end
 
-    def user_validate
-      existing_user = User.find_by(email: user_params[:email])
-      if existing_user.blank?
-        cur_user = User.create(user_params)
+    def update_max_delivery_time(restaurant_id)
+      review_max_delivery_time = Integer(params[:review][:max_delivery_time])
+      cur_restaurant = Restaurant.find(restaurant_id)
 
-        @review.user = cur_user
-      else
-        @review.user = existing_user
-      end
+      cur_restaurant.update!(max_delivery_time: [review_max_delivery_time, cur_restaurant.max_delivery_time].max)
+    end
+
+    def user_validate
+      @review.user = User.where(email: user_params[:email]).first_or_create!(user_params)
     end
 end
